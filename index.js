@@ -133,8 +133,6 @@ function countByFirstLetter(words) {
       lettersCounted.push(words[i][0].toLowerCase());
       // add object property with letter as key, and number of words starting with that letter as the value
       obj[words[i][0].toLowerCase()] = count.length;
-      // reset array
-      count = [];
     }
   }
   return obj;
