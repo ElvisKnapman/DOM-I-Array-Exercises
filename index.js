@@ -7,16 +7,13 @@ function sum(numbers) {
   // TODO: Add your solution here.
   const result = numbers.reduce((acc, curr) => {
     return acc + curr;
-  });
+  }, 0);
 
   return result;
+
+  /**************************************************************************************/
 }
 
-console.log("16", sum([1, 3, 5, 7])); // --> 16
-console.log("0", sum([0])); // --> 0
-console.log("10", sum([5, 2, 3])); // --> 10
-
-/*************************************************************************************************/
 /**
  * @instruction
  * `doubleNumbers(numbers): Array`
@@ -31,10 +28,7 @@ function doubleNumbers(numbers) {
   return result;
 }
 
-console.log("4, 10, 16", doubleNumbers([2, 5, 8])); // --> 4, 10, 16
-console.log("20, 30, 76", doubleNumbers([10, 15, 38])); // --> 20, 30, 76
-
-/*************************************************************************************************/
+/**************************************************************************************/
 
 /**
  * @instruction
@@ -44,17 +38,14 @@ console.log("20, 30, 76", doubleNumbers([10, 15, 38])); // --> 20, 30, 76
 function doubleCharacters(chars) {
   // TODO: Add your solution here.
   let string = "";
-  chars.forEach(char => {
+  chars.split("").forEach(char => {
     string += char + char;
   });
 
   return string;
 }
 
-console.log("aabb", doubleCharacters(["a", "b"])); // --> "aabb"
-console.log("ccccccdddddd", doubleCharacters(["ccc", "ddd"])); // --> "ccccccdddddd"
-
-/*************************************************************************************************/
+/**************************************************************************************/
 
 /**
  * @instruction
@@ -63,13 +54,11 @@ console.log("ccccccdddddd", doubleCharacters(["ccc", "ddd"])); // --> "ccccccddd
  */
 function backwardsify(array) {
   // TODO: Add your solution here.
+  if (array.length === 0) return {};
   return array.reverse();
 }
 
-console.log("2,1,3", backwardsify([3, 1, 2])); // --> 2,1,3
-console.log("sivle", backwardsify(["e", "l", "v,", "i", "s"])); // --> "s", "i", "v", "l", "e"
-
-/*************************************************************************************************/
+/**************************************************************************************/
 
 /**
  * @instruction
@@ -80,6 +69,8 @@ function interleave(list1, list2) {
   // TODO: Add your solution here.
   const result = [];
 
+  if (list1.length !== list2.length) return null;
+
   for (let i = 0; i < list1.length; i++) {
     result.push(list1[i]);
     result.push(list2[i]);
@@ -88,10 +79,7 @@ function interleave(list1, list2) {
   return result;
 }
 
-console.log("a", "b", "c", "d", interleave(["a", "c"], ["b", "d"])); // --> "a", "b", "c", "d"
-console.log("1, 5, 3, 7", interleave([1, 3], [5, 7])); // --> 1, 5, 3, 7
-
-/*************************************************************************************************/
+/**************************************************************************************/
 
 /**
  * @instruction
@@ -107,7 +95,7 @@ function makeRange(count, fillString) {
   return result;
 }
 
-/*************************************************************************************************/
+/**************************************************************************************/
 
 /**
  * @instuction
@@ -134,17 +122,17 @@ function countByFirstLetter(words) {
 
   for (let i = 0; i < words.length; i++) {
     // if letter has already been counted, skip
-    if (lettersCounted.includes(words[i][0])) {
+    if (lettersCounted.includes(words[i][0].toLowerCase())) {
       continue;
     } else {
       // find all words with same starting letter as current letter
       count = words.filter(word => {
-        return word[0] === words[i][0];
+        return word[0].toLowerCase() === words[i][0].toLowerCase();
       });
       // add letter to array of already counted letters
-      lettersCounted.push(words[i][0]);
+      lettersCounted.push(words[i][0].toLowerCase());
       // add object property with letter as key, and number of words starting with that letter as the value
-      obj[words[i][0]] = count.length;
+      obj[words[i][0].toLowerCase()] = count.length;
       // reset array
       count = [];
     }
@@ -152,7 +140,57 @@ function countByFirstLetter(words) {
   return obj;
 }
 
-console.log(countByFirstLetter(["cat", "kitty", "catzilla", "fluffykins"])); // --> {c: 2, k: 1, f: 1}
-console.log(
-  countByFirstLetter(["Matt", "Charles", "Mike", "Katie", "Caitlyn", "Conrad"])
-); // --> {M: 2, C: 3, K: 1}
+/**************************************************************************************/
+
+/**
+ * @instructions
+ * `groupByFirstLetter(words): Object`
+ * Given an array of words, return an object using *lowercase* letters as keys.
+ * The key value should be an array with only the words sharing a starting character.
+ *
+ * @example
+ *
+ * const input = ['Cat', 'Kitty', 'catzilla', 'fluffykins']
+ * const result = groupByFirstLetter(input)
+ * // result deep equals:
+ * // {
+ * //  c: ['cat', 'catzilla'],
+ * //  k: ['kitty'],
+ * //  f: ['fluffykins']
+ * // }
+ *
+ */
+
+function groupByFirstLetter(words) {
+  // TODO: Add your solution here.
+  if (
+    typeof words !== "object" ||
+    words === null ||
+    words === undefined ||
+    words.length === 0
+  ) {
+    return {};
+  }
+  const obj = {};
+  const lettersCounted = [];
+  let count;
+
+  for (let i = 0; i < words.length; i++) {
+    // if letter has already been counted, skip
+    if (lettersCounted.includes(words[i][0].toLowerCase())) {
+      continue;
+    } else {
+      // find all words with same starting letter as current letter
+      count = words.filter(word => {
+        return word[0].toLowerCase() === words[i][0].toLowerCase();
+      });
+      // add letter to array of already counted letters
+      lettersCounted.push(words[i][0].toLowerCase());
+      // add object property with letter as key, and number of words starting with that letter as the value
+      obj[words[i][0].toLowerCase()] = count;
+      // reset array
+      count = [];
+    }
+  }
+  return obj;
+}
