@@ -108,3 +108,51 @@ function makeRange(count, fillString) {
 }
 
 /*************************************************************************************************/
+
+/**
+ * @instuction
+ * `countByFirstLetter(words): Object`
+ * Given an array of words, return an object using *lowercase* letters as keys. The value should be a Number, with the count of words with same starting character.
+ *
+ * @example
+ *
+ * const input = ['cat', 'kitty', 'catzilla', 'fluffykins']
+ * countByFirstLetter(input)
+ * // will return:
+ * // {
+ * //  c: 2, // cat + catzilla
+ * //  k: 1, // kitty
+ * //  f: 1  // fluffykins
+ * // }
+ */
+
+function countByFirstLetter(words) {
+  // TODO: Add your solution here.
+  const obj = {};
+  const lettersCounted = [];
+  let count;
+
+  for (let i = 0; i < words.length; i++) {
+    // if letter has already been counted, skip
+    if (lettersCounted.includes(words[i][0])) {
+      continue;
+    } else {
+      // find all words with same starting letter as current letter
+      count = words.filter(word => {
+        return word[0] === words[i][0];
+      });
+      // add letter to array of already counted letters
+      lettersCounted.push(words[i][0]);
+      // add object property with letter as key, and number of words starting with that letter as the value
+      obj[words[i][0]] = count.length;
+      // reset array
+      count = [];
+    }
+  }
+  return obj;
+}
+
+console.log(countByFirstLetter(["cat", "kitty", "catzilla", "fluffykins"])); // --> {c: 2, k: 1, f: 1}
+console.log(
+  countByFirstLetter(["Matt", "Charles", "Mike", "Katie", "Caitlyn", "Conrad"])
+); // --> {M: 2, C: 3, K: 1}
