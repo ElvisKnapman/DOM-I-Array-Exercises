@@ -68,3 +68,43 @@ function backwardsify(array) {
 
 console.log("2,1,3", backwardsify([3, 1, 2])); // --> 2,1,3
 console.log("sivle", backwardsify(["e", "l", "v,", "i", "s"])); // --> "s", "i", "v", "l", "e"
+
+/*************************************************************************************************/
+
+/**
+ * @instruction
+ * `interleave(list1, list2): Array`
+ * Should return a combined single array, with individual values alternating between list1 & list2.
+ */
+function interleave(list1, list2) {
+  // TODO: Add your solution here.
+  const result = [];
+
+  for (let i = 0; i < list1.length; i++) {
+    result.push(list1[i]);
+    result.push(list2[i]);
+  }
+
+  return result;
+}
+
+console.log("a", "b", "c", "d", interleave(["a", "c"], ["b", "d"])); // --> "a", "b", "c", "d"
+console.log("1, 5, 3, 7", interleave([1, 3], [5, 7])); // --> 1, 5, 3, 7
+
+/*************************************************************************************************/
+
+/**
+ * @instruction
+ * `makeRange(count, fillString): Array`
+ * Return array of `count` length where each element is set to `fillString`
+ */
+function makeRange(count, fillString) {
+  // TODO: Add your solution here.
+  let result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(fillString);
+  }
+  return result;
+}
+
+/*************************************************************************************************/
